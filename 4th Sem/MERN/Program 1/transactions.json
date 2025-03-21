@@ -1,0 +1,17 @@
+[
+  {
+    "_id": 1,
+    "name": "Transaction 1",
+    "amount": 100
+  },
+  {
+    "_id": 2,
+    "name": "Transaction 2",
+    "amount": 200
+  },
+  {
+    "_id": 3,
+    "name": "Transaction 3",
+    "amount": 300
+  }
+]
