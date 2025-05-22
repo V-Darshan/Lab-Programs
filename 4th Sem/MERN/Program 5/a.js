@@ -64,4 +64,4 @@ const deleteFile = (fileName) => {
   });
 };
 
-deleteFile("example.txt");
+//deleteFile("example.txt");
