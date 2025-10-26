@@ -1,32 +1,63 @@
 #include<stdio.h>
-#include<time.h>
-#include<stdlib.h>
-void sort(int a[],int n){
-    int min,i,j,temp;
-    for (i = 0; i < n-2; i++){
-        min=i;
-        for(j=i+1;j<n-1;j++){
-            if(a[j]<a[min]){
-                min=j;
-            }
-        }
-        temp=a[i];
-        a[i]=a[min];
-        a[min]=temp;
-    }
-    
+#define INF 999
+#define MAX 100
+int p[MAX],c[MAX][MAX],t[MAX][2];
+int find(int v)
+{
+while(p[v])
+v=p[v];
+return v;
 }
-int main(){
-    int a[10000],i,n;
-    printf("Enter the valueof n: ");
-    scanf("%d",&n);
-    for(int a[10000];i<n;i++){
-        a[i]=rand()%100;
-    }
-    clock_t start=clock();
-    sort(a,n);
-    clock_t end=clock();
-    double timetaken=((double)(end-start));
-    printf("Time taken to sort %d elements %f seconds\n",n,timetaken);
-    return 0;
+void union1(int i,int j)
+{
+p[j]=i;
 }
+void kruskal(int n)
+{
+int i,j,k,u,v,min,res1,res2,sum=0;
+for(k=1;k<n;k++)
+{
+min=INF;
+for(i=1;i<n;i++)
+{
+ for(j=1;j<=n;j++)
+ {
+ if(i==j)
+ continue;
+ if(c[i][j]<min)
+ {
+ u=find(i);
+ v=find(j);
+ if(u!=v)
+ {
+ res1=i;
+ res2=j;
+ min=c[i][j];
+ }
+ }
+ }
+}
+union1(res1,find(res2));
+t[k][1]=res1;
+t[k][2]=res2;
+sum=sum+min;
+}
+printf("\n Cost of spanning tree is =%d",sum);
+printf("\n Edge of spanning tree are : \n");
+for(i=1;i<n;i++)
+printf("%d->%d\n",t[i][1],t[i][2]);
+}
+int main()
+{
+int i,j,n;
+printf("\nEnter the n value : ");
+scanf("%d",&n);
+for(i=1;i<n;i++)
+p[i]=0;
+printf("\nEnter the graph data : \n");
+for(i=1;i<=n;i++)
+for(j=1;j<=n;j++)
+scanf("%d",&c[i][j]);
+kruskal(n);
+return 0;
+} 

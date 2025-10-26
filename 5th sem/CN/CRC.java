@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
 class CRC {
-
     static String xor(String a, String b) {
-
         StringBuilder stringBuilder = new StringBuilder();
         int len = Math.min(a.length(), b.length());
         for (int i = 0; i < len; i++) {
@@ -15,7 +13,6 @@ class CRC {
         }
         return stringBuilder.toString();
     }
-
     static String divide(String dividend, String divisor) {
         int divisorLength = divisor.length();
         int dividendLength = dividend.length();
@@ -30,18 +27,13 @@ class CRC {
         }
         return dividend;
     }
-
     static String generateCodeWord(String message, String generator) {
         int msgLength = message.length();
         int gtrLength = generator.length();
-        // Right pad the message String to make total length as (msgLength+gtrLength-1)
-        // Put the formatted String in new variable
         String dividend = String.format("%-" + (msgLength + gtrLength - 1) + "s", message).replace(' ', '0');
-
         String remainder = divide(dividend, generator);
         return message + remainder;
     }
-
     static boolean checkCodeWord(String codeword, String generator) {
         String temp = divide(codeword, generator);
         int len = temp.length();
@@ -52,19 +44,16 @@ class CRC {
         }
         return true;
     }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter Generator String");
         String generator = scanner.next();
-
         while (true) {
             System.out.println("\nMenu");
             System.out.println("1. Generate Code Word");
             System.out.println("2. Check Code Word");
             System.out.println("3. Exit");
             int choice = scanner.nextInt();
-
             switch (choice) {
             case 1:
                 System.out.println("Enter Message");
