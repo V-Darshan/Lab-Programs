@@ -1,14 +1,13 @@
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 import java.util.Random;
+import java.util.Scanner;
 
 public class SlidingWindowClient {
     private static final String SERVER_ADDRESS = "localhost";
     private static final int PORT = 12345;
     private static final int WINDOW_SIZE = 4;
-    private static final double PACKET_LOSS_RATE = 0.1; // 10% packet loss
-
+    private static final double PACKET_LOSS_RATE = 0.1;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         try (
@@ -18,13 +17,10 @@ public class SlidingWindowClient {
         ) {
             System.out.println("Connected to server.");
             System.out.println("Enter packets (type 'exit' to quit):");
-
             int base = 0;
             int nextSeqNum = 0;
             String[] window = new String[WINDOW_SIZE];
-
             while (true) {
-                // Send packets within window
                 while (nextSeqNum < base + WINDOW_SIZE) {
                     System.out.print("Packet " + nextSeqNum + ": ");
                     String packet = scanner.nextLine();
@@ -41,8 +37,6 @@ public class SlidingWindowClient {
                     }
                     nextSeqNum++;
                 }
-
-                // Wait for acknowledgment
                 String ack = in.readLine();
                 if (ack != null && ack.startsWith("ACK")) {
                     System.out.println("Received " + ack);
@@ -53,7 +47,6 @@ public class SlidingWindowClient {
             e.printStackTrace();
         }
     }
-
     private static boolean simulatePacketLoss() {
         Random random = new Random();
         return random.nextDouble() < PACKET_LOSS_RATE;
